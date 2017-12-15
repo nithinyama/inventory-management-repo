@@ -14,10 +14,9 @@ public class CreateCommandTest {
 	
 	CreateCommand cc = new CreateCommand();
 	
-	//@Test
-	/*public void testCreateItem() {
+	@Test
+	public void testCreateItem() {
 		String[] input1= {"Book01", "10.50", "13.79"};
-//		while(true) {
 			cc.execute(input1);
 			long acutalCount = InventoryStub.getInstance().getBuyingListCount(input1[0]);
 			Assert.assertEquals(1, acutalCount);
@@ -30,9 +29,7 @@ public class CreateCommandTest {
 				Assert.assertEquals(input1[1], Double.toString(item.getCostPrice())+"0");
 				Assert.assertEquals(input1[2],  Double.toString(item.getSellingPrice()));
 			}
-//			break;
-//		}
-	}*/
+	}
 
 	@Test
 	public void testCreatefiveItems() {
@@ -46,8 +43,12 @@ public class CreateCommandTest {
 		cc.execute(input4);
 		String[] input5= {"Tab01", "100.47", "133.98"};
 		cc.execute(input5);
+		String[] input6= {"Food01", "1.47", "3.98"};
+		cc.execute(input6);
 		long acutalCount = InventoryStub.getInstance().getBuyingListCount(input5[0]) ;
-		Assert.assertEquals(5, acutalCount);
+		Assert.assertEquals(1, acutalCount);
+		acutalCount = InventoryStub.getInstance().getBuyingListCount(input6[0]) ;
+		Assert.assertEquals(2, acutalCount);
 	}
 	
 }
