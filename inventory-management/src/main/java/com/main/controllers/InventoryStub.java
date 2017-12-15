@@ -106,7 +106,10 @@ public class InventoryStub {
 	 * @return the sellingListCount
 	 */
 	public long getSellingListCount(String itemName) {
-		return sellingListCount.get(itemName);
+		if (sellingListCount.size() > 0 && sellingListCount.containsKey(itemName)) 
+			return sellingListCount.get(itemName);
+		else 
+			return 0;
 	}
 
 	/**
