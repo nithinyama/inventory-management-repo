@@ -2,7 +2,7 @@ package com.main.commands;
 
 import com.main.controllers.InventoryStub;
 
-public class UpdateSell implements Command {
+public class UpdateSellCommand implements Command {
 
 	@Override
 	public String execute(String[] input) {

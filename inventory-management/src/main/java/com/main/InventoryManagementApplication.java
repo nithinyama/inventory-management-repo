@@ -2,43 +2,67 @@ package com.main;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import com.main.commands.Command;
-import com.main.commands.CreateCommand;
-import com.main.commands.DeleteCommand;
-import com.main.commands.ReportCommand;
-import com.main.commands.UpdateBuyCommand;
-import com.main.commands.UpdateSell;
 
 public class InventoryManagementApplication {
 
-	public static void main(String[] args) {
-		if(args == null) {
-			System.out.println("Please enter the command");
-			System.exit(0);
-		}
+	private static Scanner sc;
+	private static Map<String, String> cmdMap;
 
-		Map<String, Object> cmdMap = init();
-		
+	public static void main(String[] args) {
+
+		init();
+		sc = new Scanner(System.in);
+
 		while (true) {
-			if(args.length > 0) {
-				if(args[0].equalsIgnoreCase("exit"))break;
-				Command cmd = (Command) cmdMap.get(args[0]);
-				String result = cmd.execute(args);
-				if(null != result && !(result.isEmpty())) System.out.println(result);
+			String input = sc.nextLine();
+
+			if (input.equals("quit")) {
+				System.exit(0);
+			}
+
+			String[] inputArr = input.split(" ");
+			if (!cmdMap.containsKey(inputArr[0])) {
+				System.out.println("Please enter one of the following command.");
+				System.out.println(cmdMap.keySet());
+				System.exit(0);
+			}
+
+			if (inputArr.length > 0) {
+
+				try {
+					Command cmd = (Command) Class.forName(cmdMap.get(inputArr[0])).newInstance();
+					String result = cmd.execute(inputArr);
+					
+					if (null != result && !(result.isEmpty()))
+						System.out.println(result);
+				}
+				catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} 
+
 			}
 		}
 	}
-	
-	//initilalize commands
-	public static Map<String, Object> init() {
-		Map<String, Object> map = new HashMap<>();
-		map.put(Commands.CREATE, CreateCommand.class);
-		map.put(Commands.DELETE, DeleteCommand.class);
-		map.put(Commands.UPDATESELL, UpdateSell.class);
-		map.put(Commands.UPDATEBUY, UpdateBuyCommand.class);
-		map.put(Commands.REPORT, ReportCommand.class);
-//		map.put(Commands.UPDATESELLPRICE, UpdateSellPriceCommand.class);
-		return null;
+
+	// initilalize commands
+	public static void init() {
+		cmdMap = new HashMap<>();
+		cmdMap.put(Commands.CREATE, "com.main.commands.CreateCommand");
+		cmdMap.put(Commands.DELETE, "com.main.commands.DeleteCommand");
+		cmdMap.put(Commands.UPDATESELL, "com.main.commands.UpdateSellCommand");
+		cmdMap.put(Commands.UPDATEBUY, "com.main.commands.UpdateBuyCommand");
+		cmdMap.put(Commands.REPORT, "com.main.commands.ReportCommand");
+		cmdMap.put(Commands.UPDATESELLPRICE, "com.main.commands.UpdateSellPriceCommand");
+
 	}
 }

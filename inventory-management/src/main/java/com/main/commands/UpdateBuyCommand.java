@@ -6,10 +6,10 @@ public class UpdateBuyCommand implements Command {
 
 	@Override
 	public String execute(String[] input) {
-		if(input.length < 4)
+		if(input.length < 3)
 			return "please enter correct inout.";
 		
-		InventoryStub.getInstance().create(input[1], new Double(input[2]), new Double(input[3]));
+		InventoryStub.getInstance().updateBuyingQuantity(input[1], Long.valueOf(input[2]));
 		return null;
 	}
 }
