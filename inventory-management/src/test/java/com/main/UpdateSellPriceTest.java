@@ -20,6 +20,10 @@ public class UpdateSellPriceTest {
 	public void init() {
 		cc = new CreateCommand();
 		uspc = new UpdateSellPriceCommand();
+		
+		InventoryStub.getInventoryMap().clear();
+		InventoryStub.getBuyingListCount().clear();
+		InventoryStub.getSellingListCount().clear();
 	}
 	
 	@Test

@@ -17,6 +17,10 @@ public class UpdateSellCommandTest {
 	public void init() {
 		cc = new CreateCommand();
 		usc = new UpdateSellCommand();
+		
+		InventoryStub.getInventoryMap().clear();
+		InventoryStub.getBuyingListCount().clear();
+		InventoryStub.getSellingListCount().clear();
 	}
 	
 	@Test

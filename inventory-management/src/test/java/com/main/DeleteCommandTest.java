@@ -17,6 +17,10 @@ public class DeleteCommandTest {
 	public void init() {
 		cc = new CreateCommand();
 		dc = new DeleteCommand();
+		
+		InventoryStub.getInventoryMap().clear();
+		InventoryStub.getBuyingListCount().clear();
+		InventoryStub.getSellingListCount().clear();
 	}
 	
 	@Test

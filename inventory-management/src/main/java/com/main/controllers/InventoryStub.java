@@ -153,5 +153,12 @@ public class InventoryStub {
 	public static Map<String, List<Item>> getInventoryMap() {
 		return inventoryMap;
 	}
+	
+	public static Map<String, Long> getBuyingListCount() {
+		return buyingListCount;
+	}
+	public static Map<String, Long> getSellingListCount() {
+		return sellingListCount;
+	}
 }
 

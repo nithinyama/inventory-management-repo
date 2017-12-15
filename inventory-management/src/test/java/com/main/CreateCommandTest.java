@@ -18,6 +18,10 @@ public class CreateCommandTest {
 	@Before
 	public void init() {
 		cc = new CreateCommand();
+		
+		InventoryStub.getInventoryMap().clear();
+		InventoryStub.getBuyingListCount().clear();
+		InventoryStub.getSellingListCount().clear();
 	}
 	
 	
@@ -28,7 +32,6 @@ public class CreateCommandTest {
 			long acutalCount = InventoryStub.getInstance().getBuyingListCount(input1[1]);
 			Assert.assertEquals(1, acutalCount);
 			
-			InventoryStub.getInstance();
 			Map<String, List<Item>> map = InventoryStub.getInventoryMap();
 			List<Item> items = map.get(input1[1]);
 			for(Item item : items) {

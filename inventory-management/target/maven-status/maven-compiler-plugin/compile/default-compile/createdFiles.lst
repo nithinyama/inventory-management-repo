@@ -9,5 +9,4 @@ com\main\commands\CreateCommand.class
 com\main\commands\DeleteCommand.class
 com\main\commands\ReportCommand.class
 com\main\model\Item.class
-com\main\commands\UpdateSell.class
 com\main\commands\UpdateSellPriceCommand.class
