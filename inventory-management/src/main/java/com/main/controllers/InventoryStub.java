@@ -74,6 +74,20 @@ public class InventoryStub {
 		
 		return itemName+" updated and we have selling count of "+getBuyingListCount(itemName);
 	}
+	
+	public String updateSellingPrice(String itemName, double newSellPrice) {
+		
+		if(null != inventoryMap.get(itemName)) {
+			List<Item> existItems = inventoryMap.get(itemName);
+			for(int i=0; i<existItems.size(); i++) {
+				Item item = existItems.get(i);
+				item.setSellingPrice(newSellPrice);
+			}
+		}else {
+			return "No items to update selling price.";
+		}
+		return itemName+" selling price updated.";
+	}
 
 	public String delete(String itemName) {
 

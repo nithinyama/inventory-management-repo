@@ -1,5 +1,7 @@
 package com.main.commands;
 
+import com.main.controllers.InventoryStub;
+
 public class UpdateSellPriceCommand implements Command {
 
 	@Override
@@ -7,7 +9,7 @@ public class UpdateSellPriceCommand implements Command {
 		if(input.length < 3)
 			return "please enter correct inout.";
 		
-//		InventoryStub.getInstance().updateSellingQuantity(input[1], Long.valueOf(input[2]));
+		InventoryStub.getInstance().updateSellingPrice(input[1], new Double(input[2]));
 		return null;
 	}
 }
