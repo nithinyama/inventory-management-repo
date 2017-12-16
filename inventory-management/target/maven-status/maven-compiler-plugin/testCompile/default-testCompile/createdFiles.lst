@@ -1,0 +1,5 @@
+com\main\UpdateBuyCommandTest.class
+com\main\CreateCommandTest.class
+com\main\UpdateSellCommandTest.class
+com\main\DeleteCommandTest.class
+com\main\UpdateSellPriceTest.class

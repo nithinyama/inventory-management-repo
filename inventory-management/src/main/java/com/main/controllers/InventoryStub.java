@@ -13,6 +13,7 @@ import com.main.services.ReportCalculatorService;
 
 public class InventoryStub {
 	private static Map<String, List<Item>> inventoryMap = new HashMap<>();
+	private static Map<String, Long> deletedItemCountMap =new HashMap<>();
 	private static Map<String, Long> sellingListCount=new HashMap<>();
 	private static Map<String, Long> buyingListCount=new HashMap<>();
 	
@@ -95,12 +96,15 @@ public class InventoryStub {
 			List<Item> existItems = inventoryMap.get(itemName);
 			existItems.remove(0);
 			setBuyingListCount(itemName, getBuyingListCount(itemName) - 1);
+			setDeletedItemCountMap(itemName, getDeletedItemCountMap(itemName) + 1);
 		}
 		return itemName;
 	}
 	
-	public Map<String, List<String>> report() {
-		return rcs.calculateReport(inventoryMap, buyingListCount, sellingListCount);
+	public void report() {
+		rcs.calculateReport(inventoryMap, buyingListCount, sellingListCount, deletedItemCountMap);
+		InventoryStub.deletedItemCountMap.clear();
+		InventoryStub.sellingListCount.clear();
 	}
 	
 	private List<Item> generateItems(Item item, long quantity) {
@@ -150,15 +154,26 @@ public class InventoryStub {
 		InventoryStub.buyingListCount.put(itemName, l);
 	}
 	
+	public static Map<String, Long> getSellingListCount() {
+		return sellingListCount;
+	}
+	public static Map<String, Long> getBuyingListCount() {
+		return buyingListCount;
+	}
+	
 	public static Map<String, List<Item>> getInventoryMap() {
 		return inventoryMap;
 	}
 	
-	public static Map<String, Long> getBuyingListCount() {
-		return buyingListCount;
+	public long getDeletedItemCountMap(String itemName) {
+		if (deletedItemCountMap.size() > 0 && deletedItemCountMap.containsKey(itemName)) 
+			return deletedItemCountMap.get(itemName);
+		else 
+			return 0;
 	}
-	public static Map<String, Long> getSellingListCount() {
-		return sellingListCount;
+
+	public void setDeletedItemCountMap(String itemName, long l) {
+		InventoryStub.deletedItemCountMap.put(itemName, l);
 	}
 }
 
