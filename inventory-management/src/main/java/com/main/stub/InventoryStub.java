@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.main.controllers;
+package com.main.stub;
 
 import java.util.ArrayList;
 import java.util.HashMap;

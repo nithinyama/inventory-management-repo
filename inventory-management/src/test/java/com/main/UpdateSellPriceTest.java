@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import com.main.commands.CreateCommand;
 import com.main.commands.UpdateSellPriceCommand;
-import com.main.controllers.InventoryStub;
 import com.main.model.Item;
+import com.main.stub.InventoryStub;
 
 public class UpdateSellPriceTest {
 

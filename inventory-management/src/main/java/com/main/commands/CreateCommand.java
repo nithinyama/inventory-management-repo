@@ -1,6 +1,6 @@
 package com.main.commands;
 
-import com.main.controllers.InventoryStub;
+import com.main.stub.InventoryStub;
 
 public class CreateCommand implements Command {
 	

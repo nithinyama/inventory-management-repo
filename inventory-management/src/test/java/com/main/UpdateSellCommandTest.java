@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.main.commands.CreateCommand;
 import com.main.commands.UpdateSellCommand;
-import com.main.controllers.InventoryStub;
+import com.main.stub.InventoryStub;
 
 public class UpdateSellCommandTest {
 
