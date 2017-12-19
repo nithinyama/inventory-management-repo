@@ -28,11 +28,11 @@ public class UpdateBuyCommandTest {
 		String[] input0= {"create", "Food01", "1.47", "3.98"};
 		cc.execute(input0);
 		long acutalCount = InventoryStub.getInstance().getBuyingListCount(input0[1]);
-		Assert.assertEquals(1, acutalCount);
+		Assert.assertEquals(0, acutalCount);
 		
 		String[] input1= {"updateBuy", "Food01", "11"};
 		ubc.execute(input1);
 		long actualCount1=InventoryStub.getInstance().getBuyingListCount(input0[1]);
-		Assert.assertEquals(12, actualCount1);
+		Assert.assertEquals(11, actualCount1);
 	}
 }

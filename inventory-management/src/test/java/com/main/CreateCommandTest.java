@@ -1,6 +1,5 @@
 package com.main;
 
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -30,15 +29,13 @@ public class CreateCommandTest {
 		String[] input1= {"create", "Book01", "10.50", "13.79"};
 			cc.execute(input1);
 			long acutalCount = InventoryStub.getInstance().getBuyingListCount(input1[1]);
-			Assert.assertEquals(1, acutalCount);
+			Assert.assertEquals(0, acutalCount);
 			
-			Map<String, List<Item>> map = InventoryStub.getInventoryMap();
-			List<Item> items = map.get(input1[1]);
-			for(Item item : items) {
-				Assert.assertEquals(input1[1], item.getItemName());
-				Assert.assertEquals(input1[2], Double.toString(item.getCostPrice())+"0");
-				Assert.assertEquals(input1[3],  Double.toString(item.getSellingPrice()));
-			}
+			Map<String, Item> map = InventoryStub.getCreatedItemsMap();
+			Item item = map.get(input1[1]);
+			Assert.assertEquals(input1[1], item.getItemName());
+			Assert.assertEquals(input1[2], Double.toString(item.getCostPrice())+"0");
+			Assert.assertEquals(input1[3],  Double.toString(item.getSellingPrice()));
 	}
 
 	@Test
@@ -56,9 +53,14 @@ public class CreateCommandTest {
 		String[] input6= {"create", "Food01", "1.47", "3.98"};
 		cc.execute(input6);
 		long acutalCount = InventoryStub.getInstance().getBuyingListCount(input5[1]) ;
-		Assert.assertEquals(1, acutalCount);
-		acutalCount = InventoryStub.getInstance().getBuyingListCount(input6[1]) ;
-		Assert.assertEquals(2, acutalCount);
+		Assert.assertEquals(0, acutalCount);
+		
+		Map<String, Item> map = InventoryStub.getCreatedItemsMap();
+		for(String itemName : map.keySet()) {
+			Item item = map.get(itemName);
+			Assert.assertNotNull(item.getItemName());
+			Assert.assertNotNull(Double.toString(item.getCostPrice())+"0");
+			Assert.assertNotNull(Double.toString(item.getSellingPrice()));
+		}
 	}
-	
 }

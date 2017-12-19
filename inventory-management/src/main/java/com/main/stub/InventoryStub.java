@@ -13,6 +13,7 @@ import com.main.services.ReportCalculatorService;
 
 public class InventoryStub {
 	private static Map<String, List<Item>> inventoryMap = new HashMap<>();
+	private static Map<String, Item> createdItemsMap =new HashMap<>();
 	private static Map<String, Long> deletedItemCountMap =new HashMap<>();
 	private static Map<String, Long> sellingListCount=new HashMap<>();
 	private static Map<String, Long> buyingListCount=new HashMap<>();
@@ -28,7 +29,7 @@ public class InventoryStub {
 			return is;
 	}
 
-	public Item create(String itemName, double costPrice, double sellingPrice) {
+	/*public Item create(String itemName, double costPrice, double sellingPrice) {
 		Item newitem = new Item();
 		newitem.setItemName(itemName);
 		newitem.setCostPrice(costPrice);
@@ -45,14 +46,32 @@ public class InventoryStub {
 		setBuyingListCount(itemName, getBuyingListCount(itemName) + 1);
 		
 		return newitem;
+	}*/
+	
+	public Item create(String itemName, double costPrice, double sellingPrice) {
+		Item newitem = null;
+		if(!createdItemsMap.containsKey(itemName)) {
+			newitem = new Item();
+			createdItemsMap.put(itemName, newitem);
+			newitem.setItemName(itemName);
+			newitem.setCostPrice(costPrice);
+			newitem.setSellingPrice(sellingPrice);
+		}
+		return newitem;
 	}
 
 	public String updateBuyingQuantity(String itemName, long quantity) {
 		
-		if(null != inventoryMap.get(itemName)) {
-			List<Item> existItems = inventoryMap.get(itemName);
-			List<Item> updatedItems = generateItems(existItems.get(0), quantity);
-			existItems.addAll(updatedItems);
+		if(createdItemsMap.containsKey(itemName)) {
+			Item createdItem = createdItemsMap.get(itemName);
+			if(inventoryMap.containsKey(createdItem.getItemName())) {
+				List<Item> existItems = inventoryMap.get(createdItem.getItemName());
+				List<Item> updatedItems = generateItems(createdItem, quantity);
+				existItems.addAll(updatedItems);
+			}else {
+				List<Item> createdItems = generateItems(createdItem, quantity);
+				inventoryMap.put(itemName, createdItems);
+			}
 		}else {
 			return "Please cretae an item before update.";
 		}
@@ -175,5 +194,10 @@ public class InventoryStub {
 	public void setDeletedItemCountMap(String itemName, long l) {
 		InventoryStub.deletedItemCountMap.put(itemName, l);
 	}
+	
+	public static Map<String, Item> getCreatedItemsMap() {
+		return createdItemsMap;
+	}
+
 }
 
