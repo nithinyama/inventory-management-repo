@@ -31,16 +31,16 @@ public class UpdateSellPriceTest {
 	
 	@Test
 	public void testUpdateSellPriceItems() {
-		String[] input0= {"create", "Food01", "3.47", "6.98"};
+		String[] input0= {"create", "Food01", "2.47", "3.98"};
 		cc.execute(input0);
 		
 		String[] input1= {"updateBuy", "Food01", "100"};
 		ubc.execute(input1);
-		
+
 		List<Item> items = InventoryStub.getInventoryMap().get(input0[1]);
 		for(Item item : items) {
 			double sp =item.getSellingPrice();
-			Assert.assertEquals("6.98", Double.toString(sp));
+			Assert.assertEquals("3.98", Double.toString(sp));
 		}
 		
 		String[] input5= {"updateSellPrice", "Food01", "5.98"};
